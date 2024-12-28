@@ -1,9 +1,11 @@
+using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
 using Util;
+using Util.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,10 @@ builder.Configuration.AddJsonFile("appsettings.json", true, true)
 builder.Services.AddRazorPages();
 
 var conn =  configuration.GetConnectionString("DefaultConnection");
+
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 // Configurar rastreamento
 const string serviceName = "roll-dice";
 
