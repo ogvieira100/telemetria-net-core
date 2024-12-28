@@ -2,6 +2,7 @@
 using OpenTelemetry.Logs;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -28,10 +29,10 @@ namespace Util
             INSERT INTO Logs (Timestamp, TraceId, LogLevel, Message)
             VALUES (@Timestamp, @TraceId, @LogLevel, @Message)";
 
-            command.Parameters.AddWithValue("@Timestamp", logRecord.Timestamp);
-            command.Parameters.AddWithValue("@TraceId", logRecord.TraceId );
-            command.Parameters.AddWithValue("@LogLevel", logRecord.LogLevel.ToString());
-            command.Parameters.AddWithValue("@Message", logRecord.FormattedMessage ?? string.Empty);
+            command.Parameters.Add("@Timestamp", SqlDbType.DateTime).Value = logRecord.Timestamp;
+            command.Parameters.Add("@TraceId", SqlDbType.NVarChar, 100).Value = logRecord.TraceId.ToString(); // Convert TraceId to string
+            command.Parameters.Add("@LogLevel", SqlDbType.NVarChar, 50).Value = logRecord.LogLevel.ToString();
+            command.Parameters.Add("@Message", SqlDbType.NVarChar, -1).Value = logRecord.FormattedMessage ?? string.Empty;
 
             command.ExecuteNonQuery();
         }

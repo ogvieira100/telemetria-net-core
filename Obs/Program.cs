@@ -7,10 +7,20 @@ using Util;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
+ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
+IWebHostEnvironment environment = builder.Environment;
+
+builder.Configuration.AddJsonFile("appsettings.json", true, true)
+                    .SetBasePath(environment.ContentRootPath)
+                    .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", true, true)
+                    .AddEnvironmentVariables();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-
+var conn =  configuration.GetConnectionString("DefaultConnection");
 // Configurar rastreamento
 const string serviceName = "roll-dice";
 
@@ -21,7 +31,7 @@ builder.Logging.AddOpenTelemetry(options =>
     options.IncludeScopes = true;
     options.ParseStateValues = true;
     
-    options.AddProcessor(new SqlLogProcessor("YourConnectionStringHere"));
+    options.AddProcessor(new SqlLogProcessor(conn));
     options
         .SetResourceBuilder(
             ResourceBuilder.CreateDefault()
@@ -42,9 +52,14 @@ builder.Services.AddOpenTelemetry()
       .WithTracing(tracing => tracing
           .AddAspNetCoreInstrumentation()
           .AddSqlClientInstrumentation()    
-          .AddHttpClientInstrumentation()   
+          .AddHttpClientInstrumentation()
+     // The rest of your setup code goes here
+             .AddJaegerExporter(jaegerOptions =>
+             {
+                 jaegerOptions.Endpoint = new Uri("http://localhost:14268/api/traces");
+             })
           .AddConsoleExporter())
-      .WithMetrics(metrics => metrics
+          .WithMetrics(metrics => metrics
           .AddAspNetCoreInstrumentation()
           .AddConsoleExporter());
 
