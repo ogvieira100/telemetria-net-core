@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsApi", "ObsApi\ObsApi.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util", "Util\Util.csproj", "{ACAE1EC3-57B4-4376-98CD-4FB8883A797C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsApi2", "ObsApi2\ObsApi2.csproj", "{9508C458-4956-43B5-B363-52BF1817FE5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ACAE1EC3-57B4-4376-98CD-4FB8883A797C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACAE1EC3-57B4-4376-98CD-4FB8883A797C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACAE1EC3-57B4-4376-98CD-4FB8883A797C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9508C458-4956-43B5-B363-52BF1817FE5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9508C458-4956-43B5-B363-52BF1817FE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9508C458-4956-43B5-B363-52BF1817FE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9508C458-4956-43B5-B363-52BF1817FE5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

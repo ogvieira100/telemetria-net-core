@@ -54,10 +54,10 @@ builder.Services.AddOpenTelemetry()
           .AddSqlClientInstrumentation()    
           .AddHttpClientInstrumentation()
      // The rest of your setup code goes here
-             .AddJaegerExporter(jaegerOptions =>
-             {
-                 jaegerOptions.Endpoint = new Uri("http://localhost:14268/api/traces");
-             })
+            .AddJaegerExporter(jaegerOptions =>
+            {
+                jaegerOptions.Endpoint = new Uri("http://localhost:14268/api/traces");
+            })
           .AddConsoleExporter())
           .WithMetrics(metrics => metrics
           .AddAspNetCoreInstrumentation()
